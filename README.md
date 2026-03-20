@@ -52,6 +52,7 @@ http://localhost:3000
 ### 1. Get Member Details
 
 **GET /members/:id**
+
 Returns details of a specific member.
 Example Request: GET /members/1
 
@@ -87,6 +88,7 @@ or
 ### 2. Register for Event
 
 **POST /events/:eventId/register**
+
 Registers a member for an event.
 Example Request : POST /events/1/register
 Request Body:

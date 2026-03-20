@@ -34,6 +34,7 @@ This approach keeps the system simple, reliable, and easy to maintain, while ens
 
 
 
+---
 
 ## Part 3: Security and Handover
 
