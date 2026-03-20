@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum MembershipStatus {
+  ACTIVE
+  EXPIRED
+  PENDING
+}
+
+model Member {
+  id                    Int                @id @default(autoincrement())
+  fullName              String
+  email                 String             @unique
+  membershipStatus      MembershipStatus   @default(PENDING)
+  subscriptionExpiresAt DateTime
+  createdAt             DateTime           @default(now())
+
+  registrations         EventRegistration[]
+}
+
+model Event {
+  id            Int                 @id @default(autoincrement())
+  title         String
+  description   String?
+  eventDate     DateTime
+  capacity      Int
+  createdAt     DateTime            @default(now())
+
+  registrations EventRegistration[]
+}
+
+model EventRegistration {
+  id           Int      @id @default(autoincrement())
+  memberId     Int
+  eventId      Int
+  registeredAt DateTime @default(now())
+
+  member       Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  event        Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([memberId, eventId])
+}
